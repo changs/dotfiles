@@ -56,8 +56,8 @@ vim.o.termguicolors = true
 vim.g.onedark_terminal_italics = 2
 vim.cmd [[colorscheme tokyonight]]
 vim.g.tokyonight_style = "night"
-vim.cmd [[set noruler]]
-vim.cmd [[set laststatus=0]]
+vim.o.ruler = false
+vim.o.laststatus = 0
 vim.o.mouse = 'a'
 vim.o.expandtab = true
 vim.o.tabstop = 2
