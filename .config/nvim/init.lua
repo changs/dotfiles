@@ -21,7 +21,8 @@ require('packer').startup(function()
   use 'pineapplegiant/spaceduck' -- Color scheme 
   use 'itchyny/lightline.vim' -- Fancier statusline
   use {'kristijanhusak/orgmode.nvim', config = function()
-    require('orgmode').setup{}
+    -- require('orgmode').setup{}
+    require('orgmode').setup_ts_grammar()
   end 
   }
   use 'folke/tokyonight.nvim'
@@ -36,7 +37,21 @@ require('packer').startup(function()
   use 'L3MON4D3/LuaSnip' -- Snippets plugin
   use 'junegunn/goyo.vim'
   use 'godlygeek/tabular'
+  use {'shaunsingh/oxocarbon.nvim', run = './install.sh'}
   use 'plasticboy/vim-markdown'
+  use 'Yazeed1s/oh-lucy.nvim'
+  use {
+  "folke/trouble.nvim",
+  requires = "kyazdani42/nvim-web-devicons",
+  config = function()
+    require("trouble").setup {
+      -- your configuration comes here
+      -- or leave it empty to use the default settings
+      -- refer to the configuration section below
+    }
+  end
+}
+  use {'nyoom-engineering/oxocarbon.nvim'}
   use {
     'romgrk/barbar.nvim',
     requires = {'kyazdani42/nvim-web-devicons'}
@@ -52,7 +67,9 @@ vim.wo.number = true
 --Set colorscheme (order is important here)
 vim.o.termguicolors = true
 vim.g.onedark_terminal_italics = 2
-vim.cmd [[colorscheme tokyonight]]
+-- vim.cmd.colorscheme "tokyonight"
+-- vim.cmd.colorscheme 'oh-lucy-evening'
+vim.cmd.colorscheme "oxocarbon"
 vim.g.tokyonight_style = "night"
 vim.o.ruler = false
 vim.o.laststatus = 0
@@ -118,6 +135,16 @@ require('compe').setup {
   },
 }
 
+vim.diagnostic.config({underline = false})
+vim.diagnostic.config({virtual_text = false})
+vim.diagnostic.config({
+  float = {
+    source = 'always',
+    border = border
+  },
+})
+vim.api.nvim_set_keymap('n', '<leader>dd', [[<cmd>lua vim.diagnostic.open_float()<CR>]], { noremap = true, silent = true })
+--
 -- Utility functions for compe and luasnip
 local t = function(str)
   return vim.api.nvim_replace_termcodes(str, true, true, true)
